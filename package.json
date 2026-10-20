@@ -1,0 +1,12 @@
+{
+  "name": "open-shelf",
+  "version": "1.0.0",
+  "private": true,
+  "description": "A local-first AI listing studio for independent sellers",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

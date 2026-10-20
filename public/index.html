@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#f6f3ed">
+    <meta name="description" content="Turn product photos and notes into marketplace-ready listings. Private, local AI for independent sellers.">
+    <title>Open Shelf — Your local listing studio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/styles.css">
+  </head>
+  <body>
+    <header class="topbar">
+      <a class="brand" href="/" aria-label="Open Shelf home">
+        <span class="brand-mark" aria-hidden="true">o<span></span></span>
+        <span>open<span class="brand-light">shelf</span></span>
+      </a>
+      <div class="local-badge"><span class="live-dot"></span> PRIVATE BY DESIGN <span class="badge-divider"></span> RUNS LOCALLY</div>
+      <a class="top-link" href="#how-it-works">How it works <span aria-hidden="true">↗</span></a>
+    </header>
+
+    <main class="layout">
+      <section class="intro">
+        <div class="eyebrow"><span class="eyebrow-icon">✳</span> YOUR LOCAL LISTING STUDIO</div>
+        <h1>Good finds deserve<br>a <span>second look.</span></h1>
+        <p class="intro-copy">Turn the things you make, find, and love into listings people can't scroll past. Your product info stays right here.</p>
+        <div class="intro-proof">
+          <div class="avatar-stack" aria-hidden="true"><span>M</span><span>J</span><span>A</span></div>
+          <span>Made for the one-person shop.</span>
+        </div>
+        <div class="margin-note" aria-hidden="true">less listing<br>more living <span>↗</span></div>
+      </section>
+
+      <section class="studio" aria-label="Listing generator">
+        <div class="studio-top">
+          <div>
+            <div class="section-kicker">THE LISTING DESK</div>
+            <h2>What are we selling?</h2>
+          </div>
+          <span class="step-count">01 <i>/</i> 02</span>
+        </div>
+
+        <form id="listing-form">
+          <label class="field-label" for="notes">A few details about your item <span>required</span></label>
+          <textarea id="notes" name="notes" maxlength="2000" placeholder="e.g. Hand-thrown ceramic mug, made in my home studio. Sea-glass glaze, holds about 12 oz. Small variation in each one." required></textarea>
+          <div class="textarea-meta"><span>Specifics make for better listings.</span><span id="char-count">0 / 2,000</span></div>
+
+          <div class="field-label photo-label">Add a product photo <span>optional</span></div>
+          <label class="upload-zone" id="upload-zone" for="photo">
+            <input id="photo" name="photo" type="file" accept="image/jpeg,image/png,image/webp">
+            <img id="photo-preview" alt="Selected product preview" hidden>
+            <span class="upload-content" id="upload-content">
+              <span class="upload-icon" aria-hidden="true">↥</span>
+              <span><strong>Drop a photo here</strong> or <u>browse files</u></span>
+              <small>JPG, PNG or WEBP · up to 8 MB · stays on this device</small>
+            </span>
+            <button class="remove-photo" id="remove-photo" type="button" aria-label="Remove photo" hidden>×</button>
+          </label>
+
+          <div class="settings-row">
+            <div class="setting-field">
+              <label class="field-label" for="marketplace">I'm listing on</label>
+              <select id="marketplace" name="marketplace">
+                <option>Etsy</option>
+                <option>eBay</option>
+                <option>Shopify</option>
+              </select>
+            </div>
+            <div class="setting-field">
+              <label class="field-label" for="tone">The vibe is</label>
+              <select id="tone" name="tone">
+                <option>Warm &amp; personal</option>
+                <option>Clean &amp; modern</option>
+                <option>Playful</option>
+              </select>
+            </div>
+          </div>
+          <div class="price-field">
+            <label class="field-label" for="price">Target price <span>optional</span></label>
+            <input id="price" name="price" type="text" maxlength="30" placeholder="e.g. $32">
+          </div>
+
+          <button class="generate-button" id="generate-button" type="submit">
+            <span class="sparkle" aria-hidden="true">✳</span><span id="button-label">Make my listing</span><span class="button-arrow" aria-hidden="true">→</span>
+          </button>
+          <p class="privacy-note"><span aria-hidden="true">⌑</span> Your details go to your local model, never an AI company's server.</p>
+        </form>
+
+        <div id="error-message" class="error-message" role="alert" hidden></div>
+        <section id="result" class="result" aria-live="polite" hidden>
+          <div class="result-heading">
+            <div><div class="section-kicker">READY FOR THE SHOP</div><h2>Your listing draft</h2></div>
+            <span class="model-chip" id="model-chip"></span>
+          </div>
+          <div class="result-card">
+            <div class="result-label">TITLE <button class="copy-button" data-copy="result-title">Copy</button></div>
+            <p class="result-title" id="result-title"></p>
+          </div>
+          <div class="result-card">
+            <div class="result-label">DESCRIPTION <button class="copy-button" data-copy="result-description">Copy</button></div>
+            <p class="result-description" id="result-description"></p>
+          </div>
+          <div class="result-card">
+            <div class="result-label">SEARCH TAGS</div><div id="result-tags" class="tags"></div>
+          </div>
+          <div class="result-extras">
+            <div><div class="result-label">SUGGESTED CATEGORY</div><p id="result-category"></p></div>
+            <div><div class="result-label">PRICE THOUGHT</div><p id="result-price"></p></div>
+          </div>
+          <div id="seller-checklist-wrap" class="checklist" hidden><div class="result-label">BEFORE YOU PUBLISH</div><ul id="seller-checklist"></ul></div>
+          <button class="start-over" id="start-over" type="button">← Start another listing</button>
+        </section>
+      </section>
+
+      <section class="bottom-strip" id="how-it-works">
+        <div class="strip-label">A LITTLE MORE ABOUT OPEN SHELF</div>
+        <div class="strip-grid">
+          <article><span class="strip-icon">⌂</span><div><h3>Your shop, your data.</h3><p>Photos and product details are processed by a model on your own computer. Nothing gets sent to a third-party AI.</p></div></article>
+          <article><span class="strip-icon">✳</span><div><h3>Open model. Open options.</h3><p>Powered by Qwen2.5-VL through Ollama. Swap the model any time; no subscription, no API key, no lock-in.</p></div></article>
+          <article><span class="strip-icon">♡</span><div><h3>A draft, not a boss.</h3><p>AI can get things wrong. Give every detail a quick check before your listing goes live.</p></div></article>
+        </div>
+        <div class="footer-note"><span>OPEN SHELF</span> is a tiny tool for people who make a living from the things they love. <span>✿</span></div>
+      </section>
+    </main>
+
+    <script src="/app.js"></script>
+  </body>
+</html>
